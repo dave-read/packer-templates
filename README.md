@@ -12,3 +12,5 @@ User Variables that need to be set:
         "IMAGE_VERSION": "v1"      
 ```
 The create-image.sh assume you have a local file named azure.env  with User Variables.
+
+The template install Apache HTTP server and adds the image version into the index.hml
