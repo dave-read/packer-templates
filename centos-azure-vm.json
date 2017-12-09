@@ -35,7 +35,7 @@
                 "yum -y install httpd",
                 "systemctl enable httpd",
                 "systemctl start httpd",
-                "echo \"<html><body>hostname:$(hostname)<br>image version: {{ user `IMAGE_VERSION`}}</body></html>\" > /var/www/html/index.html",
+                "echo <html><body>image version: {{ user `IMAGE_VERSION`}}</body></html>' > /var/www/html/index.html",
                 "/usr/sbin/waagent -force -deprovision+user && export HISTSIZE=0 && sync"
             ],
             "inline_shebang": "/bin/sh -x",
