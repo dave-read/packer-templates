@@ -6,7 +6,8 @@
         "SUBSCRIPTION_ID": "{{env SUBSCRIPTION_ID}}",
         "IMAGE_RESOURCE_GROUP": "",
         "LOCATION": "",
-        "IMAGE_VERSION": "v1"        
+        "BASE_IMAGE_NAME" : "CentosCustom74-CI",
+        "IMAGE_VERSION": "v1"  
     },
     "builders": [
         {
@@ -16,13 +17,13 @@
             "tenant_id": "{{user `TENANT_ID`}}",
             "subscription_id": "{{user `SUBSCRIPTION_ID`}}",
             "managed_image_resource_group_name": "{{user `IMAGE_RESOURCE_GROUP`}}",
-            "managed_image_name": "CentosCustom7.3_{{user `IMAGE_VERSION`}}",
+            "managed_image_name": "{{user `BASE_IMAGE_NAME`}}_{{user `IMAGE_VERSION`}}",
             "os_type": "Linux",
             "image_publisher": "OpenLogic",
             "image_offer": "CentOS",
-            "image_sku": "7.3",
+            "image_sku": "7-CI",
             "azure_tags": {
-                "imageVersion": "CentosCustom7.3_{{user `IMAGE_VERSION`}}"
+                "imageVersion": "{{user `IMAGE_VERSION`}}"
             },
             "location": "{{ user `LOCATION`}}",
             "vm_size": "Standard_DS2_v2"
@@ -35,7 +36,7 @@
                 "yum -y install httpd",
                 "systemctl enable httpd",
                 "systemctl start httpd",
-                "echo '<html><body>image version: {{ user `IMAGE_VERSION`}}</body></html>' > /var/www/html/index.html",
+                "echo '<html><body>image name: {{user `BASE_IMAGE_NAME`}}_{{user `IMAGE_VERSION`}}</body></html>' > /var/www/html/index.html",
                 "/usr/sbin/waagent -force -deprovision+user && export HISTSIZE=0 && sync"
             ],
             "inline_shebang": "/bin/sh -x",
